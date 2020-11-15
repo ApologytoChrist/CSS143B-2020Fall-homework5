@@ -32,10 +32,49 @@ public class Problem3Test {
         }
     }
 
+    public static class InOrderTestCase<T> {
+        final TreeNode<T> tree;
+        final List<T> expect;
+
+        public InOrderTestCase(TreeNode<T> tree, List<T> expect) {
+            this.tree = tree;
+            this.expect = expect;
+        }
+    }
     @Test
     public void testInOrderTraverse() {
         // homework
         // to verify inOrderTraverse(TreeNode<Integer> node)
+        List<InOrderTestCase<Integer>> testCases = getInOrderCases();
+        for (InOrderTestCase<Integer> testCase : testCases) {
+            List<Integer> actual = inOrderTraverse(testCase.tree);
+            assertEquals(testCase.expect, actual);
+        }
+    }
+
+    private List<InOrderTestCase<Integer>> getInOrderCases() {
+        List<InOrderTestCase<Integer>> testCases = new ArrayList<>();
+
+        testCases.add(new InOrderTestCase<>(new TreeNode<>(1), Arrays.asList(1)));
+
+        TreeNode<Integer> root = new TreeNode<>(2);
+        root.left = new TreeNode<>(1);
+        testCases.add(new InOrderTestCase<>(root, Arrays.asList(1, 2)));
+
+        root = new TreeNode<>(4);
+        root.left = new TreeNode<>(2);
+        root.right = new TreeNode<>(6);
+        testCases.add(new InOrderTestCase<>(root, Arrays.asList(2, 4, 6)));
+
+        root = new TreeNode<>(9);
+        root.left = new TreeNode<>(5);
+        root.left.left = new TreeNode<>(3);
+        root.left.right = new TreeNode<>(6);
+        root.right = new TreeNode<>(10);
+        root.right.right = new TreeNode<>(13);
+        testCases.add(new InOrderTestCase<>(root, Arrays.asList(3, 5, 6, 9, 10, 13)));
+
+        return testCases;
     }
 
     private static List<Integer> inOrderTraverse(TreeNode<Integer> node) {
@@ -146,9 +185,11 @@ public class Problem3Test {
         //    N   N
         // homework
         // what problem can you see for insertInBst from this test case?
-        // answer:
+        // answer:There is nothing binary about this. We have essentially turned it into a single linked list. We
+        // cannot slip any value in between any of the two links.
         // discuss how you would solve it in a comment below
-        // answer:
+        // answer: The only way to solve this would be to redo the root. We would have to keep shifting the root to a
+        // higher value so that we don't end up jamming all the values onto the right.
         root = new TreeNode<>(1);
         testCases.add(new BSTTestCase<>(root, 2, Arrays.asList(1, 2)));
         testCases.add(new BSTTestCase<>(root, 3, Arrays.asList(1, 2, 3)));
