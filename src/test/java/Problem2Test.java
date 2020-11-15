@@ -49,7 +49,7 @@ public class Problem2Test {
         List<LCATestCase<Integer>> testCases = getLCATestCases();
         for (int i = 0; i < testCases.size(); i++) {
             LCATestCase<Integer> testCase = testCases.get(i);
-P            assertEquals("case" + i,testCase.expect.val, LCA.lowestCommonAncestor(testCase.tree, testCase.node1, testCase.node2).val);
+            assertEquals("case" + i,testCase.expect.val, LCA.lowestCommonAncestor(testCase.tree, testCase.node1, testCase.node2).val);
         }
     }
 
